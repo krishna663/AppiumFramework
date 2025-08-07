@@ -13,7 +13,7 @@ import java.net.URL;
 
 public class AppFactory {
     static AppiumDriver driver;
-
+ //hello
     public static void android_launchApp() throws MalformedURLException, URISyntaxException {
 
         UiAutomator2Options options = new UiAutomator2Options();
