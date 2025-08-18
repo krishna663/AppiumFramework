@@ -1,15 +1,14 @@
 package driver;
 
+import base.AppData;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.ios.options.XCUITestOptions;
 
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 
 public class AppFactory {
     static AppiumDriver driver;
@@ -22,17 +21,22 @@ public class AppFactory {
                 .setAppPackage("com.saucelabs.mydemoapp.rn")
                 .setAppActivity(".MainActivity");
 
-        driver = new AndroidDriver(new URI("http://localhost:4723/wd/hub").toURL()
+        driver = new AndroidDriver(new URI("http://localhost:4723").toURL()
                 , options);
         AppDriver.setDriver(driver);
         System.out.println("AndroidDriver is set");
     }
 
-    public static void ios_launchApp(XCUITestOptions options) throws MalformedURLException, URISyntaxException {
-        driver = new IOSDriver(new URI("http://localhost:4723/wd/hub").toURL()
-                , options);
+    public static void ios_launchApp() throws MalformedURLException, URISyntaxException {
+        driver = new IOSDriver(new URI("http://localhost:4723/wd/hub").toURL());
         AppDriver.setDriver(driver);
         System.out.println("IOSDriver is set");
     }
 
+    public static void launchApp() throws MalformedURLException, URISyntaxException {
+        if(AppData.platForm.contains("android"))
+        {
+            AppFactory.android_launchApp();
+        }
+    }
 }
