@@ -7,16 +7,22 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public class LoginPage extends BasePage{
+public class LoginPage extends BasePage {
 
     By userName;
-    By passWord;
+    By password;
+    By usernameError;
+    By passwordError;
+    By invalidCredentialsError;
 
-    public LoginPage()
-    {
-        if (AppDriver.getCurrentDriver() instanceof AndroidDriver)
-        {
+
+    public LoginPage() {
+        if (AppDriver.getCurrentDriver() instanceof AndroidDriver) {
             userName = AppiumBy.accessibilityId("Username input field");
+            usernameError = By.xpath("//android.widget.TextView[@text=\"Username is required\"]");
+            passwordError = By.xpath("//android.widget.TextView[@text=\"Password is required\"]");
+            invalidCredentialsError = By.xpath("//android.widget.TextView[@text=\"Provided credentials do not match any user in this service.\"]");
+
         } else if (AppDriver.getCurrentDriver() instanceof AndroidDriver) {
             userName = AppiumBy.accessibilityId("Username input field");
         }
@@ -26,16 +32,33 @@ public class LoginPage extends BasePage{
     private WebElement Password;
 
     @AndroidFindBy(xpath = "(//android.widget.TextView[@text=\"Login\"])[2]")
-    private WebElement btnLogin;
+    public WebElement btnLogin;
 
     MenuPage menuPage = new MenuPage();
 
-    public void login(String username, String password)
-    {
+    public void login(String username, String password) {
         waitNdSend(userName, username);
+        Password.clear();
         Password.sendKeys(password);
         btnLogin.click();
     }
+
+    public String getUsernameErrorText()
+    {
+        return getText(usernameError);
+    }
+
+    public String getPasswordErrorText()
+    {
+        return getText(passwordError);
+    }
+    public String getInvalidCredentialErrorMessage()
+    {
+        return getText(invalidCredentialsError);
+    }
+
+
 }
+
 
 

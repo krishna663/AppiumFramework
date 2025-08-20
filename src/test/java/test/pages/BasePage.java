@@ -50,7 +50,9 @@ public class BasePage {
 
     protected void waitNdSend(By bylocator, String txt)
     {
-        waitForEl(bylocator).sendKeys(txt);
+        waitForEl(bylocator);
+        getEle(bylocator).clear();
+        getEle(bylocator).sendKeys(txt);
     }
 
     protected void waitNdClick(By bylocator)

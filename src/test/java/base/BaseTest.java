@@ -10,7 +10,7 @@ import java.net.URISyntaxException;
 
 public class BaseTest {
 
-    @BeforeMethod
+    @BeforeClass
     public static void launchApp() throws MalformedURLException, URISyntaxException {
         AppFactory.launchApp();
     }
